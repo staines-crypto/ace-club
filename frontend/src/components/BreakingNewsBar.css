@@ -1,0 +1,113 @@
+/* ================= BREAKING NEWS BAR ================= */
+.breaking-wrapper {
+  position: fixed;          /* 🔥 always visible */
+  top: 95px;                /* below navbar */
+  left: 0;
+  width: 100%;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  height: 42px;
+
+  background: rgba(176, 4, 4, 0.953);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  overflow: hidden;
+}
+
+/* ================= LABEL ================= */
+.breaking-label {
+  background: rgb(144, 4, 4);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0 16px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  letter-spacing: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ================= MARQUEE ================= */
+.breaking-marquee {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.breaking-marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-left 18s linear infinite;
+
+  color: #ffffff;
+  font-weight: 500;
+  will-change: transform;
+}
+
+  /* Default running */
+.breaking-marquee span {
+  animation-play-state: running;
+}
+
+/* Paused state (toggled by click) */
+.breaking-marquee.paused span {
+  animation-play-state: paused;
+}
+
+/* UX hint */
+.breaking-marquee {
+  cursor: pointer;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ================= ACCESSIBILITY ================= */
+@media (prefers-reduced-motion: reduce) {
+  .breaking-marquee span {
+    animation: none;
+    padding-left: 0;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .breaking-wrapper {
+    top: 64px; /* smaller navbar on mobile */
+    height: 38px;
+  }
+
+  .breaking-label {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .breaking-marquee span {
+    font-size: 14px;
+    animation-duration: 22s; /* slower = easier reading */
+  }
+}
+
+@media (max-width: 480px) {
+  .breaking-label {
+    letter-spacing: 0.5px;
+  }
+
+  .breaking-marquee span {
+    font-size: 13px;
+  }
+}

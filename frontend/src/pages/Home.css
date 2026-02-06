@@ -1,0 +1,518 @@
+/* ===============================
+   ROOT VARIABLES
+================================ */
+:root {
+  --primary-dark: #0b1f3a;
+  --accent: #ff7a18;
+  --soft-bg: #f7f9fc;
+  --card-radius: 16px;
+}
+
+/* ===============================
+   GLOBAL
+================================ */
+body {
+  margin: 0;
+  background: var(--soft-bg);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+  color: var(--primary-dark);
+  line-height: 1.7;
+}
+
+/* ===============================
+   HERO VIDEO
+================================ */
+.video-hero {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+}
+
+.video-hero video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 31, 58, 0.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-logo {
+  width: 250px;
+  margin-bottom: 14px;
+}
+
+.hero-tagline {
+  color: #effdb3;
+  font-size: 12px;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+/* ===============================
+   SECTIONS
+================================ */
+.container section {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  padding: 28px 30px;
+  margin-bottom: 34px;
+  border-radius: var(--card-radius);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+  transition:
+    transform 0.4s cubic-bezier(.4,0,.2,1),
+    box-shadow 0.4s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+
+.container section:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 55px rgba(11, 31, 58, 0.28);
+}
+
+/* ===============================
+   HEADINGS & TEXT
+================================ */
+.container h2 {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 10px;
+}
+
+.container h3 {
+  font-size: 21px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.container p,
+.container li {
+  font-size: 15.6px;
+  color: #333;
+  line-height: 1.75;
+}
+
+.container ul {
+  padding-left: 18px;
+  margin-top: 10px;
+}
+
+/* ===============================
+   DIVIDER
+================================ */
+.container hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.25),
+    transparent
+  );
+  margin: 35px 0;
+}
+
+/* ===============================
+   BORDER DRAW EFFECT
+================================ */
+.container section::before,
+.container section::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent),
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.55s ease;
+}
+
+.container section::before {
+  top: 0;
+}
+
+.container section::after {
+  bottom: 0;
+}
+
+.container section span.border-side {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.container section span.border-side::before,
+.container section span.border-side::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--primary-dark),
+    transparent
+  );
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.55s ease;
+}
+
+.container section span.border-side::before {
+  left: 0;
+}
+
+.container section span.border-side::after {
+  right: 0;
+}
+
+.container section:hover::before,
+.container section:hover::after {
+  transform: scaleX(1);
+}
+
+.container section:hover span.border-side::before,
+.container section:hover span.border-side::after {
+  transform: scaleY(1);
+}
+
+/* ===============================
+   FACULTY SECTION
+================================ */
+.faculty-section {
+  text-align: center;
+}
+
+.faculty-statement {
+  margin: 8px 0 32px;
+  font-size: 15px;
+  color: #555;
+}
+
+.faculty-grid {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 50px;
+}
+
+.faculty-card {
+  width: 220px;
+  text-align: center;
+  position: relative;
+  transition: transform 0.35s ease;
+}
+
+.faculty-card:hover {
+  transform: translateY(-6px);
+}
+
+.faculty-card:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -25px;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.faculty-card img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 14px;
+  transition: transform 0.45s ease;
+}
+
+.faculty-card:hover img {
+  transform: scale(1.04);
+}
+
+.faculty-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+.faculty-card span {
+  font-size: 13px;
+  color: #666;
+}
+/* ===============================
+   STUDENT COORDINATORS – FINAL FIX
+================================ */
+
+/* SECTION WIDTH CONTROL */
+.faculty-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* DOMAIN WRAPPER */
+.domain-wrapper {
+  margin-top: 40px;
+}
+
+/* DOMAIN TITLE */
+.domain-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0b1f3a;
+  margin-bottom: 25px;
+}
+
+/* OUTER SCROLL CONTAINER */
+.domain-row {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 0 30px;
+}
+
+/* HIDE SCROLLBAR */
+.domain-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* INNER FLEX ROW — THIS IS THE KEY */
+.domain-inner {
+  display: flex;
+  flex-direction: row;      /* 🔥 FORCE HORIZONTAL */
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 70px;
+  width: max-content;
+  margin: 0 auto;
+}
+
+/* CENTER WHEN FEW ITEMS */
+.domain-inner.centered {
+  justify-content: center;
+  width: 100%;
+}
+
+/* PERSON CARD */
+.person-card {
+  width: 180px;
+  flex: 0 0 180px;          /* 🔥 PREVENT SHRINK */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* IMAGE CIRCLE */
+.person-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #0b1f3a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* IMAGE */
+.person-img img {
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+}
+
+/* TEXT */
+.person-name {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b1f3a;
+}
+
+.person-meta {
+  font-size: 12px;
+  color: #666;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .domain-inner {
+    gap: 40px;
+  }
+
+  .person-card {
+    width: 160px;
+    flex: 0 0 160px;
+  }
+
+  .person-img {
+    width: 130px;
+    height: 130px;
+  }
+}
+/* ===============================
+   RESPONSIVE REFINEMENT – FINAL
+================================ */
+
+/* LARGE SCREENS (1200px+) */
+@media (min-width: 1200px) {
+  .faculty-section {
+    max-width: 1000px;
+  }
+
+  .domain-inner {
+    gap: 80px;
+  }
+}
+
+/* LAPTOP / TABLET */
+@media (max-width: 1024px) {
+  .faculty-section {
+    max-width: 900px;
+  }
+
+  .domain-inner {
+    gap: 60px;
+  }
+
+  .person-card {
+    width: 170px;
+    flex: 0 0 170px;
+  }
+.person-card {
+  position: relative;
+}
+
+
+
+
+
+
+}
+
+/* TABLET */
+@media (max-width: 768px) {
+  .faculty-section {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .domain-title {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .domain-inner {
+    gap: 40px;
+  }
+
+  .person-card {
+    width: 150px;
+    flex: 0 0 150px;
+  }
+  .person-card::before {
+    width: 146px;
+    height: 146px;
+    top: -6px;
+  }
+
+  .person-img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .person-name {
+    font-size: 13px;
+  }
+
+  .person-meta {
+    font-size: 11px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .domain-row {
+    padding-bottom: 20px;
+  }
+
+  .domain-inner {
+    gap: 30px;
+  }
+
+  .person-card {
+    width: 140px;
+    flex: 0 0 140px;
+  }
+  .person-card::before {
+    width: 136px;
+    height: 136px;
+    top: -5px;
+  }
+
+  .person-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .person-name {
+    font-size: 13px;
+  }
+
+  .person-meta {
+    font-size: 11px;
+  }
+}
+/* ENHANCED MAIN SECTION HEADING */
+.faculty-section > h3 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 45px;
+  padding-bottom: 14px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--primary-dark);
+}
+
+.faculty-section > h3::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 65%;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent),
+    transparent
+  );
+  border-radius: 2px;
+}
