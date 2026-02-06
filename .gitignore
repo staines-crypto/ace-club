@@ -1,13 +1,19 @@
 # Node
 node_modules/
-npm-debug.log*
+**/node_modules/
 
-# Environment
-.env
-
-# Build
+# Builds
 build/
 dist/
+**/build/
+**/dist/
+
+# Uploads (CRITICAL)
+backend/uploads/
+**/uploads/
+
+# Env
+.env
 
 # OS
 .DS_Store
