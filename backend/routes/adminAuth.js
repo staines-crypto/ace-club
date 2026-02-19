@@ -1,64 +1,37 @@
 const express = require("express");
-const nodemailer = require("nodemailer");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const router = express.Router();
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
-let currentOTP = null;
-let otpExpiresAt = null;
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false, // 🔥 THIS FIXES IT
-  },
-});
+// 🔐 Change these credentials
+const ADMIN_USERNAME = "Saahil@17861";
 
 
-transporter.verify((err) => {
-  if (err) console.error("❌ Mail error:", err);
-  else console.log("✅ Gmail SMTP ready");
-});
 
-router.post("/send-otp", async (req, res) => {
-  currentOTP = Math.floor(100000 + Math.random() * 900000);
-  otpExpiresAt = Date.now() + 5 * 60 * 1000;
+// Generate this once and keep it fixed
+const ADMIN_PASSWORD_HASH = bcrypt.hashSync("Saahil@17861", 10);
 
-  try {
-    await transporter.sendMail({
-      from: `"ACE Club Admin" <${process.env.EMAIL_USER}>`,
-      to: ADMIN_EMAIL,
-      subject: "ACE Club Admin Login OTP",
-      text: `Your OTP is ${currentOTP}. Valid for 5 minutes.`,
-    });
+// 🔐 LOGIN ROUTE
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
 
-    res.json({ message: "OTP sent successfully" });
-  } catch (err) {
-    console.error("❌ Send error:", err);
-    res.status(500).json({ message: "Failed to send OTP" });
-  }
-});
+  if (username !== ADMIN_USERNAME)
+    return res.status(401).json({ message: "Invalid username" });
 
-router.post("/verify-otp", (req, res) => {
-  const { otp } = req.body;
+  const isMatch = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
 
-  if (!currentOTP || Date.now() > otpExpiresAt)
-    return res.status(401).json({ message: "OTP expired" });
+  if (!isMatch)
+    return res.status(401).json({ message: "Invalid password" });
 
-  if (parseInt(otp) === currentOTP) {
-    currentOTP = null;
-    otpExpiresAt = null;
-    return res.json({ success: true });
-  }
+  const token = jwt.sign(
+    { username },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+  );
 
-  res.status(401).json({ message: "Invalid OTP" });
+  res.json({ success: true, token });
 });
 
 module.exports = router;

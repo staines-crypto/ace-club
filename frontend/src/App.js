@@ -13,6 +13,7 @@ import BreakingNewsBar from "./components/BreakingNewsBar";
 import ScrollToTop from "./components/ScrollToTop";
 import Events from "./pages/Events";
 
+
 function App() {
   return (
     <BrowserRouter>

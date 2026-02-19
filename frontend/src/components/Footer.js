@@ -1,4 +1,5 @@
 import "./Footer.css";
+import { FaInstagram, FaEnvelope } from "react-icons/fa";
 
 function Footer() {
   return (
@@ -10,12 +11,28 @@ function Footer() {
           <p className="tagline">Articulate • Create • Express</p>
         </div>
 
+        {/* CONTACT SECTION */}
         <div className="footer-section">
-          <h4>CONTACT Link</h4>
-          <ul>
-            <a href="https://www.instagram.com/ace_.club._?igsh=MTdwMzFrcnhsM3h0">ace_.club._</a>
-            
-          </ul>
+          <h4>Contact</h4>
+
+          <div className="contact-item">
+            <FaInstagram className="icon insta" />
+            <a
+              href="https://www.instagram.com/ace_.club._?igsh=MTdwMzFrcnhsM3h0"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ace_.club._
+            </a>
+          </div>
+
+          <div className="contact-item">
+  <FaEnvelope className="icon mail" />
+  <a href="mailto:aceclub2k26@gmail.com">
+    aceclub2k26@gmail.com
+  </a>
+</div>
+
         </div>
 
         <div className="footer-section">

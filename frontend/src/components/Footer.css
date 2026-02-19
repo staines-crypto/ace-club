@@ -88,3 +88,32 @@
     margin: 4px 8px;
   }
 }
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  color: #ccc;
+}
+
+.contact-item a {
+  color: #ccc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.contact-item a:hover {
+  color: #ff9800;
+}
+
+.icon {
+  font-size: 16px;
+}
+
+.insta {
+  color: #e1306c;
+}
+
+.mail {
+  color: #ff5722;
+}

@@ -1,8 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import "./Navbar.css";
 import logo from "../assets/Logo1.png";
-import adminLogo from "../assets/admin-logo.png";
+import { Link } from "react-router-dom";
+
 
 function Navbar() {
   const [showNews, setShowNews] = useState(false);

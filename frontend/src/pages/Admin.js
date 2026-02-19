@@ -60,49 +60,11 @@ const [editingId, setEditingId] = useState(null);
   const [stories, setStories] = useState([]);
 
   // 🔐 OTP STATES
-const [otp, setOtp] = useState("");
-const [otpStep, setOtpStep] = useState(1); // 1 = send, 2 = verify
-const [otpMsg, setOtpMsg] = useState("");
+  const [username, setUsername] = useState("Saahil@17861");
+  const [password, setPassword] = useState("Saahil@17861");
+  const [loginMsg, setLoginMsg] = useState("");
 
-const sendOtp = async () => {
-  try {
-    const res = await fetch("http://localhost:5000/api/admin/send-otp", {
-      method: "POST",
-    });
 
-    const data = await res.json();
-    setOtpMsg(data.message || "OTP sent");
-    setOtpStep(2);
-  } catch {
-    setOtpMsg("❌ Failed to send OTP");
-  }
-};
-const verifyOtp = async () => {
-  try {
-    const res = await fetch("http://localhost:5000/api/admin/verify-otp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ otp }),
-    });
-
-    const data = await res.json();
-
-    // ✅ ONLY HERE
-    if (data.success) {
-      sessionStorage.setItem("adminLoggedIn", "true");
-      setLoggedIn(true);
-
-      // optional cleanup
-      setOtp("");
-      setOtpMsg("");
-      setOtpStep(1);
-    } else {
-      setOtpMsg(data.message || "Invalid OTP");
-    }
-  } catch {
-    setOtpMsg("❌ OTP verification failed");
-  }
-};
 
 
   /* 🔄 FETCH DATA */
@@ -171,6 +133,29 @@ const verifyOtp = async () => {
     setContent("");
     setImage(null);
   };
+
+  const handleLogin = async () => {
+  try {
+    const res = await fetch("http://localhost:5000/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      sessionStorage.setItem("adminToken", data.token);
+      sessionStorage.setItem("adminLoggedIn", "true");
+      setLoggedIn(true);
+      setLoginMsg("");
+    } else {
+      setLoginMsg(data.message || "Login failed");
+    }
+  } catch {
+    setLoginMsg("❌ Server error");
+  }
+};
 
   /* ➕ ADD MAGAZINE WITH COVER IMAGE */
 const handleMagazineSubmit = async (e) => {
@@ -320,6 +305,32 @@ const url = editingId
   }
 };
 
+if (!loggedIn) {
+  return (
+    <div className="container">
+      <h2>Admin Login</h2>
+
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <button onClick={handleLogin}>Login</button>
+
+      {loginMsg && <p>{loginMsg}</p>}
+    </div>
+  );
+}
+
 
 
 
@@ -350,33 +361,6 @@ const url = editingId
 };
 
 
-if (!loggedIn) {
-  return (
-    <div className="container">
-      <h2>Admin Login</h2>
-
-      {otpStep === 1 && (
-        <>
-          <p>Receive OTP on admin email</p>
-          <button onClick={sendOtp}>Send OTP</button>
-        </>
-      )}
-
-      {otpStep === 2 && (
-        <>
-          <input
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-          />
-          <button onClick={verifyOtp}>Verify OTP</button>
-        </>
-      )}
-
-      {otpMsg && <p>{otpMsg}</p>}
-    </div>
-  );
-}
 
   /* 🧑‍💻 DASHBOARD */
   return (
