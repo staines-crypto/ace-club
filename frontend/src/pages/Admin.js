@@ -709,15 +709,18 @@ if (!loggedIn) {
       />
 
       <select
-        value={coordDomain}
-        onChange={(e) => setCoordDomain(e.target.value)}
-      >
-        <option value="overall">Overall</option>
-        <option value="web">Web</option>
-        <option value="editing">Editing</option>
-        <option value="data">Data</option>
-        <option value="anchoring">Anchoring</option>
-      </select>
+  value={coordDomain}
+  onChange={(e) => setCoordDomain(e.target.value)}
+>
+  <option value="president">President</option>
+  <option value="vice_president">Vice President</option>
+  <option value="secretary">Secretary</option>
+  <option value="joint_secretary">Joint Secretary</option>
+  <option value="operational_head">Operational Head</option>
+  <option value="promotional_head">Promotional Head</option>
+  <option value="social_media_head">Social Media Head</option>
+  <option value="campus_radio_head">Campus Radio Head</option>
+</select>
 
       <input
         placeholder="Branch"

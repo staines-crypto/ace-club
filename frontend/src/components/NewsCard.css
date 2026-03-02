@@ -155,3 +155,44 @@
     font-size: 14px;
   }
 }
+/* ===============================
+   NEWS FILTER RESPONSIVE FIX
+================================ */
+
+/* Desktop */
+.news-filters {
+  display: flex;
+  gap: 16px;
+  margin: 20px 0;
+  align-items: center;
+}
+
+/* Search takes remaining space */
+.news-filters input[type="text"] {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Date input fixed size */
+.news-filters input[type="date"] {
+  width: 170px;
+}
+
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  .news-filters {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .news-filters input {
+    width: 100%;
+  }
+
+  .news-filters input[type="date"] {
+    width: 100%;
+  }
+}

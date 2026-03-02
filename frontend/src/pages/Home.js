@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import logo from "../assets/logo.png";
 import "../components/Container.css";
 import heroVideo from "../assets/hero.mp4";
@@ -9,7 +9,57 @@ import sneha from "../assets/sneha.png";
 import akhil from "../assets/akhil.png";
 
 function Home() {
-  /* 👥 STUDENT COORDINATORS FROM BACKEND */
+
+  /* ================= FACULTY CAROUSEL ================= */
+  const [facultyIndex, setFacultyIndex] = useState(0);
+  const startX = useRef(0);
+
+  const facultyList = [
+    {
+      img: kavya,
+      name: "Kavya Chalamalasetty",
+      dept: "Dept of ECE"
+    },
+    {
+      img: sneha,
+      name: "Sneha Pradhan",
+      dept: "Dept of CSD"
+    },
+    {
+      img: akhil,
+      name: "Syed Akheel Hassan Gori",
+      dept: "Dept of CST"
+    }
+  ];
+
+  // Auto swap every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFacultyIndex(prev => (prev + 1) % facultyList.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Swipe Support
+  const handleTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const diff = startX.current - e.changedTouches[0].clientX;
+
+    if (diff > 50) {
+      setFacultyIndex(prev => (prev + 1) % facultyList.length);
+    } else if (diff < -50) {
+      setFacultyIndex(prev =>
+        (prev - 1 + facultyList.length) % facultyList.length
+      );
+    }
+  };
+
+  /* ================= STUDENT COORDINATORS ================= */
+
   const [coordinators, setCoordinators] = useState([]);
 
   useEffect(() => {
@@ -19,7 +69,6 @@ function Home() {
       .catch(err => console.error("Coordinator fetch error", err));
   }, []);
 
-  /* FILTER BY DOMAIN */
   const byDomain = (domain) =>
     coordinators.filter(c => c.domain === domain);
 
@@ -37,7 +86,6 @@ function Home() {
         </div>
       </div>
 
-      {/* ================= MAIN CONTENT ================= */}
       <div className="container">
 
         {/* ABOUT */}
@@ -68,49 +116,32 @@ function Home() {
 
         <hr />
 
-        {/* FACULTY */}
+        {/* ================= FACULTY ================= */}
         <section className="faculty-section">
-          <h3>Faculty Co-ordinators</h3>
+  <h3>Faculty Co-ordinators</h3>
 
-          <p>
-            ACE started from what we saw in our classrooms. Many students have
-            great ideas but often miss events because they don’t get the
-            information on time. Even when they know what to say, some hesitate
-            to speak in front of others because they’re nervous or unsure.
-            <br /><br />
-            During a group discussion, some students told us they knew exactly
-            what to speak but were too scared. When we asked them to write it
-            down instead, they did it confidently.
-            <br /><br />
-            That moment made us realize that so many students have thoughts that
-            can inspire others, but they just don’t have a platform to share
-            them. That’s how ACE came to life — combining a campus radio and a
-            magazine.
-          </p>
-
-          <div className="faculty-grid">
-            <div className="faculty-card">
-              <img src={kavya} alt="Kavya" />
-              <h4>Kavya Chalamalasetty</h4>
-              <span>Assistant Professor</span><br />
-              <span>Dept of ECE</span>
-            </div>
-
-            <div className="faculty-card">
-              <img src={sneha} alt="Sneha" />
-              <h4>Sneha Pradhan</h4>
-              <span>Assistant Professor</span><br />
-              <span>Dept of CSD</span>
-            </div>
-
-            <div className="faculty-card">
-              <img src={akhil} alt="Akheel" />
-              <h4>Syed Akheel Hassan Gori</h4>
-              <span>Assistant Professor</span><br />
-              <span>Dept of CST</span>
-            </div>
-          </div>
-        </section>
+  <div
+    className="faculty-carousel-wrapper"
+    onTouchStart={handleTouchStart}
+    onTouchEnd={handleTouchEnd}
+  >
+    <div
+      className="faculty-carousel"
+      style={{
+        transform: `translateX(-${facultyIndex * 100}%)`
+      }}
+    >
+      {facultyList.map((faculty, index) => (
+        <div className="faculty-card" key={index}>
+          <img src={faculty.img} alt={faculty.name} />
+          <h4>{faculty.name}</h4>
+          <span>Assistant Professor</span><br />
+          <span>{faculty.dept}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
         <hr />
 
@@ -119,12 +150,15 @@ function Home() {
           <h3>Students Driving A.C.E Club Operations</h3>
 
           {[
-            ["overall", "A.C.E Coordinators"],
-            ["web", "Webpage Management"],
-            ["editing", "Editing Wing"],
-            ["data", "Data Collection Wing"],
-            ["anchoring", "Radio Anchoring"],
-          ].map(([key, title]) => {
+  ["president", "President"],
+  ["vice_president", "Vice President"],
+  ["secretary", "Secretary"],
+  ["joint_secretary", "Joint Secretary"],
+  ["operational_head", "Operational Head"],
+  ["promotional_head", "Promotional Head"],
+  ["social_media_head", "Social Media Head"],
+  ["campus_radio_head", "Campus Radio Head"],
+].map(([key, title]) => {
             const list = byDomain(key);
             return (
               <div key={key} className="domain-wrapper">
