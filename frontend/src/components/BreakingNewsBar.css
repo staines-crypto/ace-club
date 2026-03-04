@@ -8,7 +8,8 @@
 
   display: flex;
   align-items: center;
-  height: 42px;
+  min-height: 48px;
+  padding: 8px 0;
 
   background: rgba(176, 4, 4, 0.953);
   backdrop-filter: blur(6px);
@@ -65,7 +66,10 @@
 .breaking-marquee {
   cursor: pointer;
 }
-
+.breaking-marquee span {
+  font-size: 16px;
+  font-weight: 600;
+}
 /* ================= ANIMATION ================= */
 @keyframes scroll-left {
   from {
@@ -84,21 +88,22 @@
   }
 }
 
-/* ================= MOBILE ================= */
 @media (max-width: 768px) {
+
   .breaking-wrapper {
-    top: 64px; /* smaller navbar on mobile */
-    height: 38px;
+    top: 70px;          /* matches mobile navbar */
+    min-height: 52px;
+    padding: 6px 0;
   }
 
   .breaking-label {
-    padding: 0 12px;
-    font-size: 13px;
+    font-size: 14px;
+    padding: 0 14px;
   }
 
   .breaking-marquee span {
-    font-size: 14px;
-    animation-duration: 22s; /* slower = easier reading */
+    font-size: 15px;
+    animation-duration: 24s;
   }
 }
 

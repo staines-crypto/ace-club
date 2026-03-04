@@ -31,15 +31,16 @@ function Home() {
       dept: "Dept of CST"
     }
   ];
+  const facultyLength = facultyList.length;
 
   // Auto swap every 2 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFacultyIndex(prev => (prev + 1) % facultyList.length);
-    }, 2000);
+  const interval = setInterval(() => {
+    setFacultyIndex(prev => (prev + 1) % facultyLength);
+  }, 2000);
 
-    return () => clearInterval(interval);
-  }, []);
+  return () => clearInterval(interval);
+}, [facultyLength]);
 
   // Swipe Support
   const handleTouchStart = (e) => {
